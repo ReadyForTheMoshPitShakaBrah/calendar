@@ -1,0 +1,38 @@
+nav {
+  position: relative;
+  left: 20%;
+  width: 60%;
+  text-align: center;
+}
+nav #Prvs {
+  position: absolute;
+  width: 25%;
+}
+nav #Current {
+  position: absolute;
+  border-left: 0px;
+  border-right: 0px;
+  left: 25%;
+  width: 50%;
+}
+nav #Next {
+  position: absolute;
+  float: right;
+  width: 25%;
+  left: 75%;
+}
+.bordered {
+  height: 50px;
+  border: 5px;
+  border-style: solid;
+  border-color: black;
+}
+.calendar {
+  position: relative;
+  border: 5px;
+  border-style: solid;
+  border-color: black;
+  left: 20%;
+  width: 60%;
+  height: 700px;
+}

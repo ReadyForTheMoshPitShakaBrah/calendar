@@ -104,7 +104,7 @@ $(document).ready(function() {
         }
 		}
 		dateNum.setFullYear(year, month);
-		if($('#current').attr('step')=='2'){current.innerHTML=dateNum.toLocaleString("ru", options3);}
+		if($('#current').attr('step')=='2'){current.innerHTML=dateNum.getFullYear();}
 
 		else{current.innerHTML=dateNum.toLocaleString("ru", options);}
 	}
@@ -126,7 +126,7 @@ $(document).ready(function() {
 		}
 		}
 		showMonth(date);
-	})
+	});
 	$('#next').on("click", function() {
 		if($('#current').attr('step')=='2'){year++;}
 		else{
@@ -161,7 +161,11 @@ $(document).ready(function() {
   $('#current').on('click',function(event) {
 	  var target = event.target;
 
-    if(target.getAttribute("step")=="1") { $('#choose').show(); $('#current').attr('step', String('2'));
+    if(target.getAttribute("step")=="1") { 
+	$('#choose').show(); 
+	$('#current').attr('step', String('2')); 
+	$('#next').text("след год");
+	$('#prvs').text("пред год");
 	cur();}
 	else{    $('#chooseyear').show();
 	}
@@ -179,6 +183,8 @@ $(document).ready(function() {
     $("#choose").hide();
     $('#chooseyear').hide();
 	$('#current').attr('step', String('1'));
+	$('#next').text("Следующий месяц");
+	$('#prvs').text("Предыдущий месяц");
 	showMonth(date);
   });
   	$('#t4 td').on("click", function(event) {

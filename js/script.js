@@ -30,16 +30,20 @@ $(document).ready(function() {
   }
   function monthtable(data) {
     var monthrow = '<tbody>';
-    for (var i = 0; i <= 11; i++) {
-      monthrow += '<tr></tr>';
+    for (var i = 0; i <= 2; i++) {
+      monthrow += '<tr><td></td><td></td><td></td><td></td></tr>';
     }
     monthrow += "</tbody>";
     $("#t3").html(monthrow);
   };
+  var h=0;
   function writemonth(months) {
-    for (var k = 0; k <= 11; k++) {
-      t3.rows[k].innerHTML = months[k];
-      t3.rows[k].setAttribute("id", k);
+    for (var k = 0; k <= 2; k++) {
+		for (var l = 0; l <= 3; l++){
+      t3.rows[k].cells[l].innerHTML = months[h];
+      t3.rows[k].cells[l].setAttribute("id", h);
+	  h++;
+		}
     }
   }
   monthtable(months);
@@ -99,6 +103,9 @@ $(document).ready(function() {
 		current.innerHTML=dateNum.toLocaleString("ru", options);
 	}
 	showMonth(date);
+	
+	function cur() {current.innerHTML=date.getFullYear();}
+	
 	$('#prvs').on("click", function() {
 		if(month==0) {
 			date.setFullYear(date.getFullYear()-1,11,1);
@@ -138,12 +145,20 @@ $(document).ready(function() {
 			date.setDate(target.innerHTML);
 			alert(date.toLocaleString("ru", options2));
     }
-	})
-  $('#current').on('click',function() {
-    $('#choose').show();
-    $('#chooseyear').show();
+	});
+  $('#current').on('click',function(event) {
+	  var target = event.target;
+
+    if(target.getAttribute("step")=="1") { $('#choose').show(); $('#current').attr('step', String('2'));
+	cur();}
+	else{    $('#chooseyear').show();
+	}
+
+
 
   });
+  
+
   $('#t3').on("click", function(event) {
     var target = event.target;
     date.setMonth(target.getAttribute("id"));
@@ -151,13 +166,15 @@ $(document).ready(function() {
     showMonth(date);
     $("#choose").hide();
     $('#chooseyear').hide();
-  })
+	$('#current').attr('step', String('1'));
+  });
   	$('#t4 td').on("click", function(event) {
       var target = event.target;
       date.setFullYear(target.innerHTML, month,10);
       year = target.innerHTML;
       showMonth(date);
       $('#chooseyear').hide();
-      $("#choose").hide();
-    })
-})
+      
+	  $('#current').attr('step', String('2'));
+    });
+});

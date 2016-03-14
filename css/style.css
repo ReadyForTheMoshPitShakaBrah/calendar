@@ -1,14 +1,15 @@
 nav {
   position: absolute;
+  
   left: 20%;
-  width: 60%;
+  width: 20%;
   text-align: center;
 }
 nav #prvs {
   position: absolute;
   width: 25%;
 }
-nav #current {
+nav #current, nav #current2 {
   position: absolute;
   border-left: 0px;
   border-right: 0px;
@@ -35,7 +36,7 @@ nav #next {
   border-top: 0;
   top: 68px;
   left: 20%;
-  width: 60%;
+  width: 20%;
 }
 .calHeader {
 font-weight: bold ;
@@ -47,18 +48,27 @@ background: #D3D3D3;
 background: #D3D3D3;
 }
 #choose {
+  
   background-color: white;
   position: absolute;
-  top: 70px;
-  left: 40%;
+  border: 5px;
+  border-style: solid;
+  border-color: black;
+  border-top: 0;
+  top: 60px;
+  height: 186px;
+  width: 100%;
   display: block;
-  z-index: 2;
+  z-index: 1;
 }
+#choose table{height:186px; width:100%}
+#choose table * td {width:25%}
 #chooseyear {
   background-color: white;
   position: absolute;
-  top: 70px;
-  left: 50%;
+  top: 60px;
+  width: 100%;
+
   display: block;
-  z-index: 1;
+  z-index: 2;
 }

@@ -4,7 +4,26 @@ function include(url) {
   document.getElementsByTagName('head')[0].appendChild(script);
 }
 include ("jquery-2.2.1.min.js");
-
+function startTime()
+{
+var tm=new Date();
+var h=tm.getHours();
+var m=tm.getMinutes();
+var s=tm.getSeconds();
+m=checkTime(m);
+s=checkTime(s);
+$('#time').html(h+":"+m+":"+s);
+t=setTimeout('startTime()',500);
+}
+function checkTime(i)
+{
+if (i<10)
+{
+i="0" + i;
+}
+return i;
+}
+startTime();
 $(document).ready(function() {
   var options3={
   month: 'long',

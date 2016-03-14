@@ -6,7 +6,9 @@ function include(url) {
 include ("jquery-2.2.1.min.js");
 
 $(document).ready(function() {
-  var months = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь", "Январь"];
+  var options3={
+  month: 'long',
+  }
   function yeartable() {
     var yearrow = '<tbody>';
     for(var k = 0; k < 10; k++) {
@@ -28,7 +30,7 @@ $(document).ready(function() {
       }
      }
   }
-  function monthtable(data) {
+  function monthtable() {
     var monthrow = '<tbody>';
     for (var i = 0; i <= 2; i++) {
       monthrow += '<tr><td></td><td></td><td></td><td></td></tr>';
@@ -36,25 +38,25 @@ $(document).ready(function() {
     monthrow += "</tbody>";
     $("#t3").html(monthrow);
   };
+  var months= new Date(2009, 11);
   var h=0;
-  function writemonth(months) {
+  function writemonth() {
     for (var k = 0; k <= 2; k++) {
 		for (var l = 0; l <= 3; l++){
-      t3.rows[k].cells[l].innerHTML = months[h];
+	  months.setMonth(months.getMonth()+1);
+      t3.rows[k].cells[l].innerHTML = months.toLocaleString("ru", options3);
       t3.rows[k].cells[l].setAttribute("id", h);
 	  h++;
 		}
     }
   }
-  monthtable(months);
-  writemonth(months);
+  monthtable();
+  writemonth();
   yeartable();
   writeyear();
   $('#chooseyear').hide();
   $("#choose").hide();
-  var options3={
-  month: 'long',
-  }
+
 	var options={
 	year: 'numeric',
  	month: 'long',

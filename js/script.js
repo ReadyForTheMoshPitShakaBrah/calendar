@@ -64,6 +64,10 @@ $(document).ready(function() {
 	year: 'numeric',
  	month: 'long',
 	}
+		var options3={
+	year: 'numeric',
+
+	}
 	var a;
 	var date = new Date;
 	var month = date.getMonth();
@@ -100,13 +104,17 @@ $(document).ready(function() {
         }
 		}
 		dateNum.setFullYear(year, month);
-		current.innerHTML=dateNum.toLocaleString("ru", options);
+		if($('#current').attr('step')=='2'){current.innerHTML=dateNum.toLocaleString("ru", options3);}
+
+		else{current.innerHTML=dateNum.toLocaleString("ru", options);}
 	}
 	showMonth(date);
 	
 	function cur() {current.innerHTML=date.getFullYear();}
 	
 	$('#prvs').on("click", function() {
+		if($('#current').attr('step')=='2'){year--;}
+		else{
 		if(month==0) {
 			date.setFullYear(date.getFullYear()-1,11,1);
 			month=11;
@@ -116,9 +124,12 @@ $(document).ready(function() {
 			month--;
 			date.setMonth(month);
 		}
+		}
 		showMonth(date);
 	})
 	$('#next').on("click", function() {
+		if($('#current').attr('step')=='2'){year++;}
+		else{
 		if(month==11) {
 			date.setFullYear(date.getFullYear()+1,0,1);
 			month=0;
@@ -127,6 +138,7 @@ $(document).ready(function() {
 		else{
 			month++;
 			date.setMonth(month);
+		}
 		}
 		showMonth(date);
 	})
@@ -163,18 +175,20 @@ $(document).ready(function() {
     var target = event.target;
     date.setMonth(target.getAttribute("id"));
     month = target.getAttribute("id");
-    showMonth(date);
+    
     $("#choose").hide();
     $('#chooseyear').hide();
 	$('#current').attr('step', String('1'));
+	showMonth(date);
   });
   	$('#t4 td').on("click", function(event) {
       var target = event.target;
       date.setFullYear(target.innerHTML, month,10);
       year = target.innerHTML;
-      showMonth(date);
+      
       $('#chooseyear').hide();
       
 	  $('#current').attr('step', String('2'));
+	  	showMonth(date);
     });
 });

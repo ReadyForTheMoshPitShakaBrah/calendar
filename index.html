@@ -3,16 +3,37 @@
   <head>
     <meta charset=utf-8>
     <title>Календарь</title>
-    <link href="style.css" rel="stylesheet">
+    <script src="js/jquery-2.2.1.min.js"></script>
+    <script src="js/script.js"></script>
+    <link href="css/style.css" rel="stylesheet">
     <script src="scritp.js"></script>
   </head>
   <body>
     <nav>
-      <div class="bordered" id="Prvs">Предыдущий месяц</div>
-      <div class="bordered" id="Current"></div>
-      <div class="bordered" id="Next">Следующий месяц</div>
+      <div class="bordered" id="prvs">Предыдущий месяц</div>
+      <div class="bordered" id="current"></div>
+      <div class="bordered" id="next">Следующий месяц</div>
     </nav>
-    <div class="calendar">
+    <div class="calendar" id="calend">
+    <table id="t1" border="1" width="100%">
+      <tbody>
+      <tr>
+      <td class="calHeader">Пн</td>
+      <td class="calHeader">Вт</td>
+      <td class="calHeader">Ср</td>
+      <td class="calHeader">Чт</td>
+      <td class="calHeader">Пт</td>
+      <td class="calHeader">Сб</td>
+      <td class="calHeader">Вс</td>
+      </tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        </tbody>
+    </table>
     </div>
   </body>
 </html>

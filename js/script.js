@@ -6,6 +6,51 @@ function include(url) {
 include ("jquery-2.2.1.min.js");
 
 $(document).ready(function() {
+  var months = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь", "Январь"];
+  function yeartable() {
+    var yearrow = '<tbody>';
+    for(var k = 0; k < 10; k++) {
+      yearrow += '<tr>';
+      for (var i = 0; i < 10; i++) {
+        yearrow += '<td></td>';
+      }
+       yearrow += '</tr>';
+     }
+     yearrow += "</tbody>";
+     $("#t4").html(yearrow);
+  }
+  function writeyear() {
+    var firstyear = 1950;
+    for(var k = 0; k < 10; k++) {
+      for (var i = 0; i < 10; i++) {
+        t4.rows[k].cells[i].innerHTML = firstyear;
+        firstyear++;
+      }
+     }
+  }
+  function monthtable(data) {
+    var monthrow = '<tbody>';
+    for (var i = 0; i <= 11; i++) {
+      monthrow += '<tr></tr>';
+    }
+    monthrow += "</tbody>";
+    $("#t3").html(monthrow);
+  };
+  function writemonth(months) {
+    for (var k = 0; k <= 11; k++) {
+      t3.rows[k].innerHTML = months[k];
+      t3.rows[k].setAttribute("id", k);
+    }
+  }
+  monthtable(months);
+  writemonth(months);
+  yeartable();
+  writeyear();
+  $('#chooseyear').hide();
+  $("#choose").hide();
+  var options3={
+  month: 'long',
+  }
 	var options={
 	year: 'numeric',
  	month: 'long',
@@ -21,25 +66,34 @@ $(document).ready(function() {
 	var year = date.getFullYear();
 	var showMonth=function(dateNum) {
 		dateNum.setDate(1);
-
-    if(dateNum.getDay()==0)	{
+    if(dateNum.getDay()==0)
+    	{
       dateNum.setDate(-6);
-    }else{dateNum.setDate(- dateNum.getDay()+1);}
+    }
+    else
+    {dateNum.setDate(- dateNum.getDay()+1);}
 		for(var i = 1 ; i<7 ;i++) {
 				for(var k=0;k<7;k++) {
 					dateNum.setDate(dateNum.getDate()+1);
 					t1.rows[i].cells[k].innerHTML=dateNum.getDate();
 					t1.rows[i].cells[k].className="";
-					if((dateNum.getMonth()<month)||(dateNum.getFullYear<year)) {
-						t1.rows[i].cells[k].className="prvsMounth";
-						t1.rows[i].cells[k].bgcolor="grey";
-					}
-					if((dateNum.getMonth()>month)||(dateNum.getFullYear>year)) {
-						t1.rows[i].cells[k].className="nextMounth";
-						t1.rows[i].cells[k].bgcolor="grey";
-					}
-			}
-
+					if(dateNum.getFullYear()==year) {
+            if(dateNum.getMonth()<month) {
+						  t1.rows[i].cells[k].className="prvsMounth";
+            }
+  					if((dateNum.getMonth()>month)) {
+						    t1.rows[i].cells[k].className="nextMounth";
+					  }
+          }
+          else {
+            if(dateNum.getFullYear()<year) {
+              t1.rows[i].cells[k].className="prvsMounth";
+            }
+            if(dateNum.getFullYear()>year) {
+              t1.rows[i].cells[k].className="nextMounth";
+            }
+          }
+        }
 		}
 		dateNum.setFullYear(year, month);
 		current.innerHTML=dateNum.toLocaleString("ru", options);
@@ -85,4 +139,25 @@ $(document).ready(function() {
 			alert(date.toLocaleString("ru", options2));
     }
 	})
+  $('#current').on('click',function() {
+    $('#choose').show();
+    $('#chooseyear').show();
+
+  });
+  $('#t3').on("click", function(event) {
+    var target = event.target;
+    date.setMonth(target.getAttribute("id"));
+    month = target.getAttribute("id");
+    showMonth(date);
+    $("#choose").hide();
+    $('#chooseyear').hide();
+  })
+  	$('#t4 td').on("click", function(event) {
+      var target = event.target;
+      date.setFullYear(target.innerHTML, month,10);
+      year = target.innerHTML;
+      showMonth(date);
+      $('#chooseyear').hide();
+      $("#choose").hide();
+    })
 })

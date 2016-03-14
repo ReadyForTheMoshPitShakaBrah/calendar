@@ -104,7 +104,7 @@ $(document).ready(function() {
         }
 		}
 		dateNum.setFullYear(year, month);
-		if($('#current').attr('step')=='2'){current.innerHTML=dateNum.getFullYear();}
+		if($('#current').attr('step')=='2'){cur();}
 
 		else{current.innerHTML=dateNum.toLocaleString("ru", options);}
 	}

@@ -9,21 +9,24 @@
     <script src="scritp.js"></script>
   </head>
   <body>
+    <div class="layout">
+      <div id="time"></div>
+      <div id="currentdata"></div>
     <nav>
-      <div class="bordered" id="prvs">Предыдущий месяц</div>
-      <div class="bordered" id="current" step="1"></div>
-      <div class="bordered" id="next">Следующий месяц</div>
+      <div class="bordered" id="prvs"><</div>
+      <div class="bordered" id="current" step="0"></div>
+      <div class="bordered" id="next">></div>
+    </nav>
+    <div class="calendar" id="calend">
       <div id="choose">
-      <table id="t3" border="1">
+      <table id="t3">
       </table>
       </div>
       <div id="chooseyear">
-      <table id="t4" border="1">
+      <table id="t4">
       </table>
       </div>
-    </nav>
-    <div class="calendar" id="calend">
-    <table id="t1" border="1" width="100%">
+    <table id="t1" width="100%">
       <tbody>
       <tr>
       <td class="calHeader">Пн</td>
@@ -42,7 +45,7 @@
       <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
         </tbody>
     </table>
-    <div id="time"></div>
     </div>
+  </div>
   </body>
 </html>

@@ -30,9 +30,9 @@ $(document).ready(function() {
   }
   function yeartable() {
     var yearrow = '<tbody>';
-    for(var k = 0; k < 10; k++) {
+    for(var k = 0; k < 4; k++) {
       yearrow += '<tr>';
-      for (var i = 0; i < 10; i++) {
+      for (var i = 0; i < 5; i++) {
         yearrow += '<td></td>';
       }
        yearrow += '</tr>';
@@ -40,10 +40,15 @@ $(document).ready(function() {
      yearrow += "</tbody>";
      $("#t4").html(yearrow);
   }
-  function writeyear() {
-    var firstyear = 1950;
-    for(var k = 0; k < 10; k++) {
-      for (var i = 0; i < 10; i++) {
+  function writeyear(getYear,znak) {
+
+if(getYear!=null){if(znak==1)
+    var firstyear = getYear+20;
+    if(znak==0)var firstyear = getYear-20;
+  }
+    else {var firstyear = date.getFullYear();}
+    for(var k = 0; k < 4; k++) {
+      for (var i = 0; i <5; i++) {
         t4.rows[k].cells[i].innerHTML = firstyear;
         firstyear++;
       }
@@ -63,7 +68,7 @@ $(document).ready(function() {
     for (var k = 0; k <= 2; k++) {
 		for (var l = 0; l <= 3; l++){
 	  months.setMonth(months.getMonth()+1);
-      t3.rows[k].cells[l].innerHTML = months.toLocaleString("ru", options3);
+      t3.rows[k].cells[l].innerHTML = months.toLocaleString("ru", options3).substring(0,3);
       t3.rows[k].cells[l].setAttribute("id", h);
 	  h++;
 		}
@@ -72,7 +77,7 @@ $(document).ready(function() {
   monthtable();
   writemonth();
   yeartable();
-  writeyear();
+
   $('#chooseyear').hide();
   $("#choose").hide();
 
@@ -87,7 +92,6 @@ $(document).ready(function() {
 	}
 		var options3={
 	year: 'numeric',
-
 	}
 	var a;
 	var date = new Date;
@@ -125,17 +129,18 @@ $(document).ready(function() {
         }
 		}
 		dateNum.setFullYear(year, month);
-		if($('#current').attr('step')=='2'){cur();}
-
-		else{current.innerHTML=dateNum.toLocaleString("ru", options);}
+		if($('#current').attr('step')=='1'){current.innerHTML=dateNum.toLocaleString("ru", options3);}
+if($('#current').attr('step')==2){current.innerHTML= Number($('#t4 tbody tr:eq(0) td:eq(0)').text())+"-"+Number(Number($('#t4 tbody tr:eq(0) td:eq(0)').text())+19);}
+		if($('#current').attr('step')=='0'){current.innerHTML=dateNum.toLocaleString("ru", options);}
 	}
 	showMonth(date);
-	
-	function cur() {current.innerHTML=date.getFullYear();}
-	
+	function cur() {if($('#current').attr('step')=='1')current.innerHTML=date.getFullYear();
+  if($('#current').attr('step')=='2')current.innerHTML=date.getFullYear()+"-"+Number(date.getFullYear()+19);
+}
 	$('#prvs').on("click", function() {
-		if($('#current').attr('step')=='2'){year--;}
-		else{
+		if($('#current').attr('step')=='2'){ var getYear = Number($('#t4 tbody tr:eq(0) td:eq(0)').text()); var znak=0; writeyear(getYear,znak);}
+    if($('#current').attr('step')=='1')  year--;
+    if($('#current').attr('step')=='0')
 		if(month==0) {
 			date.setFullYear(date.getFullYear()-1,11,1);
 			month=11;
@@ -145,12 +150,13 @@ $(document).ready(function() {
 			month--;
 			date.setMonth(month);
 		}
-		}
 		showMonth(date);
 	});
 	$('#next').on("click", function() {
-		if($('#current').attr('step')=='2'){year++;}
-		else{
+		if($('#current').attr('step')=='2'){ var getYear = Number($('#t4 tbody tr:eq(0) td:eq(0)').text()); var znak=1; writeyear(getYear,znak);}
+
+    if($('#current').attr('step')=='1'){  year++;}
+    if($('#current').attr('step')=='0'){
 		if(month==11) {
 			date.setFullYear(date.getFullYear()+1,0,1);
 			month=0;
@@ -159,10 +165,9 @@ $(document).ready(function() {
 		else{
 			month++;
 			date.setMonth(month);
-		}
-		}
+		}}
 		showMonth(date);
-	})
+	});
 	$('#t1 td').on("click", function(event) {
 			var target = event.target;
       if(target.className!="calHeader"){
@@ -178,44 +183,32 @@ $(document).ready(function() {
 			date.setDate(target.innerHTML);
 			alert(date.toLocaleString("ru", options2));
     }
+    date.setFullYear(year,month);
 	});
   $('#current').on('click',function(event) {
 	  var target = event.target;
-
-    if(target.getAttribute("step")=="1") { 
-	$('#choose').show(); 
-	$('#current').attr('step', String('2')); 
-	$('#next').text("след год");
-	$('#prvs').text("пред год");
+    if(target.getAttribute("step")=="0") {
+	$('#choose').show();
+	$('#current').attr('step', String('1'));
 	cur();}
-	else{    $('#chooseyear').show();
+	else{    $('#chooseyear').show();$('#current').attr('step', String('2'));writeyear();cur();
 	}
-
-
-
   });
-  
-
   $('#t3').on("click", function(event) {
     var target = event.target;
     date.setMonth(target.getAttribute("id"));
     month = target.getAttribute("id");
-    
     $("#choose").hide();
     $('#chooseyear').hide();
-	$('#current').attr('step', String('1'));
-	$('#next').text("Следующий месяц");
-	$('#prvs').text("Предыдущий месяц");
+	$('#current').attr('step', String('0'));
 	showMonth(date);
   });
   	$('#t4 td').on("click", function(event) {
       var target = event.target;
       date.setFullYear(target.innerHTML, month,10);
       year = target.innerHTML;
-      
       $('#chooseyear').hide();
-      
-	  $('#current').attr('step', String('2'));
+	  $('#current').attr('step', String('1'));
 	  	showMonth(date);
     });
 });
